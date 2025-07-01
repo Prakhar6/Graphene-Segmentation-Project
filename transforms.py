@@ -4,13 +4,6 @@ import numpy as np
 import torch
 import random
 
-# Set seed for reproducibility
-random.seed(42)
-np.random.seed(42)
-torch.manual_seed(42)
-if torch.cuda.is_available():
-    torch.cuda.manual_seed_all(42)
-
 def get_augmented_transform():
     def transform(image, mask):
         image = TF.resize(image, (256, 256))
@@ -31,7 +24,6 @@ def get_augmented_transform():
             mask = TF.rotate(mask, angle)
 
         image = TF.to_tensor(image)
-        image = TF.normalize(image, mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]) #Image normailization 
         mask = torch.as_tensor(np.array(mask), dtype=torch.long)
         return image, mask
     return transform
@@ -41,7 +33,6 @@ def get_basic_transform():
         image = TF.resize(image, (256, 256))
         mask = TF.resize(mask, (256, 256), interpolation=Image.NEAREST)
         image = TF.to_tensor(image)
-        image = TF.normalize(image, mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]) #Image normailization 
         mask = torch.as_tensor(np.array(mask), dtype=torch.long)
         return image, mask
     return transform
