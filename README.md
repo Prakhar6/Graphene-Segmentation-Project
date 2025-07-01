@@ -1,4 +1,4 @@
-# 🧪 Graphene Layer Segmentation from Optical Microscope Images
+# Graphene Layer Segmentation from Optical Microscope Images
 
 This project uses semantic segmentation to detect and classify different graphene layer regions from optical microscope images using **DeepLabV3** (PyTorch). The model distinguishes background, monolayer graphene, and multilayer graphene areas pixel by pixel.
 > We also performed testing using the SMP U-Net-based model (see results section) for comparison
@@ -6,7 +6,7 @@ This project uses semantic segmentation to detect and classify different graphen
 
 ---
 
-## 🔬 Problem Statement
+## Problem Statement
 
 Optical images of graphene flakes often contain overlapping regions with varying numbers of atomic layers. The goal is to:
 - **Segment each flake region** from the image.
@@ -20,7 +20,7 @@ This allows researchers to quickly analyze high-resolution microscope images wit
 ---
 
 
-## 🧠 Model Architecture: DeepLabV3
+## Model Architecture: DeepLabV3
 
 This project uses a **DeepLabV3-ResNet50** model from `torchvision.models.segmentation`:
 
@@ -31,9 +31,9 @@ This project uses a **DeepLabV3-ResNet50** model from `torchvision.models.segmen
 
 ---
 
-## 🔁 Training Pipeline
+## Training Pipeline
 
-### ✅ 1. Dataset & Mask Preparation
+### 1. Dataset & Mask Preparation
 
 - Images are cropped from high-res 2048×1536 microscope scans.
 - Masks are created using [MakeSense.ai](https://www.makesense.ai/) and exported as PNG or COCO format.
@@ -42,9 +42,19 @@ This project uses a **DeepLabV3-ResNet50** model from `torchvision.models.segmen
   - `1` → 1 layer (green)
   - `2` → 2+ layers (red)
 
-### ✅ 2. Data Augmentation
+### 2. Data Augmentation
 
 Implemented in `transforms.py`:
 - Resizing (256x256)
 - Random flips & rotations
 - Converted into PyTorch tensors
+- Total of 16 images created from the original dataset of 4
+
+### ### ✅ 3. Model Training (`train.py`)
+- 20 epochs using CrossEntropyLoss
+- Adam optimizer with lr=1e-4
+- Final model saved to graphene_deeplabv3.pth
+
+
+
+
