@@ -59,10 +59,10 @@ Implemented in `transforms.py`:
 ### 4. Testing & Evaluation ('test_deeplabv3.py')
 - Loads the saved DeepLabV3 model
 - Generates predictions on the test set
-- Saves side-by-side comparisons to outputs_deeplabv3/ C
-- omputes metrics:
--   Per-class IoU
--   Pixel accuracy
+- Saves side-by-side comparisons to outputs_deeplabv3/
+- Computes metrics:
+  -   Per-class IoU
+  -   Pixel accuracy
 
 
 
