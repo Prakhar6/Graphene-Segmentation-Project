@@ -43,9 +43,7 @@ This project uses a **DeepLabV3-ResNet50** model from `torchvision.models.segmen
   - `2` → 2+ layers (red)
 - 'generate_augmented_dataset.py' unpacks the COCO format to create the masks for pytorch in PNG format
 
-### 2. Data Augmentation
-
-Implemented in `transforms.py`:
+### 2. Data Augmentation ('transforms.py')
 - Resizing (256x256)
 - Random flips & rotations
 - Converted into PyTorch tensors
