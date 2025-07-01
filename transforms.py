@@ -4,6 +4,13 @@ import numpy as np
 import torch
 import random
 
+# Set seed for reproducibility
+random.seed(42)
+np.random.seed(42)
+torch.manual_seed(42)
+if torch.cuda.is_available():
+    torch.cuda.manual_seed_all(42)
+
 def get_augmented_transform():
     def transform(image, mask):
         image = TF.resize(image, (256, 256))
