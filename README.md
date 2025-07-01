@@ -43,7 +43,7 @@ This project uses a **DeepLabV3-ResNet50** model from `torchvision.models.segmen
   - `2` → 2+ layers (red)
 - 'generate_augmented_dataset.py' unpacks the COCO format to create the masks for pytorch in PNG format
 
-### 2. Data Augmentation ('transforms.py')
+### 2. Data Augmentation (`transforms.py`)
 - Resizing (256x256)
 - Random flips & rotations
 - Converted into PyTorch tensors
@@ -55,7 +55,7 @@ This project uses a **DeepLabV3-ResNet50** model from `torchvision.models.segmen
 - Final model saved to graphene_deeplabv3.pth
 
 
-### 4. Testing & Evaluation ('test_deeplabv3.py')
+### 4. Testing & Evaluation (`test_deeplabv3.py`)
 - Loads the saved DeepLabV3 model
 - Generates predictions on the test set
 - Saves side-by-side comparisons to outputs_deeplabv3/
@@ -63,5 +63,10 @@ This project uses a **DeepLabV3-ResNet50** model from `torchvision.models.segmen
   -   Per-class IoU
   -   Pixel accuracy
 
+## Results
+| Model       | Background IoU | 1 Layer IoU | 2+ Layers IoU | Pixel Accuracy |
+|-------------|----------------|-------------|----------------|----------------|
+| **DeepLabV3** | **0.9636**     | **0.7915**   | **0.9741**      | **0.9812**     |
+| U-Net       | 0.9507         | 0.3574      | 0.9597         | 0.9726         |
 
 
