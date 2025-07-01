@@ -50,6 +50,44 @@ This project uses a **DeepLabV3-ResNet50** model from `torchvision.models.segmen
 - Total of 16 images created from the original dataset of 4
 
 ### 3. Model Training (`train_deeplabv3.py`)
+#### Model Architecture
+This script trains a DeepLabV3 segmentation model on the preprocessed graphene dataset using PyTorch. The model used is a DeepLabV3 with a ResNet-50 backbone, pretrained on ImageNet:
+```
+from torchvision.models.segmentation import deeplabv3_resnet50
+model = deeplabv3_resnet50(pretrained=True)
+```
+
+To adapt this model to a 3-class problem (Background, 1 Layer, 2+ Layers), the classifier head is replaced with a custom head:
+```
+class DeepLabHead(nn.Sequential):
+    def __init__(self, in_channels, num_classes):
+        super(DeepLabHead, self).__init__(
+            nn.Conv2d(in_channels, 256, kernel_size=3, padding=1, bias=False),
+            nn.BatchNorm2d(256),
+            nn.ReLU(),
+            nn.Conv2d(256, num_classes, kernel_size=1)
+        )
+```
+This adds two convolutional layers:
+- A 3x3 conv followed by batch norm and ReLU
+- A final 1x1 conv to produce the desired number of output classes (in this case, 3)
+
+Next, the training images and masks are loaded from:
+```
+aug_images/   # Augmented training images
+aug_masks/    # Corresponding training masks
+```
+The dataset uses a  resizing and tensor conversion transform:
+```
+from transforms import get_basic_transform
+train_dataset = GrapheneSegmentationDataset(train_img_dir, train_mask_dir, transform=get_basic_transform())
+train_loader = DataLoader(train_dataset, batch_size=2, shuffle=True)
+```
+
+
+
+
+
 - 20 epochs using CrossEntropyLoss
 - Adam optimizer with lr=1e-4
 - Final model saved to graphene_deeplabv3.pth
@@ -76,6 +114,6 @@ This project uses a **DeepLabV3-ResNet50** model from `torchvision.models.segmen
 - Labeling with even ~4–5 high-quality annotated images, combined with flips/rotations, can yield strong performance.
 
 ## Acknowledgments 
-- MakeSense.ai for fast online annotation
+- [MakeSense.ai](https://www.makesense.ai/) for fast online annotation
 - DeepLabV3 by Google, available via torchvision.models.segmentation
 - Research guidance and data from Dr. Shao’s Lab
