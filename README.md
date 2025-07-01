@@ -123,6 +123,69 @@ for epoch in range(20):
 After training, the model’s weights are saved as `graphene_deeplabv3.pth`. You can reload it for testing/inference later using the same model architecture. A similar process is used to train the SMP Unet model as well.
 
 ### 4. Testing & Evaluation (`test_deeplabv3.py`)
+After training, the model is evaluated on a set of unseen test images using pixel-level metrics and visualization.
+
+#### <ins> Model Loading </ins>
+The model is re-initialized with the same architecture used during training and the saved weights are loaded:
+- weights=None disables loading of pretrained weights (we use our own).
+- .eval() sets the model to inference mode (important for layers like BatchNorm and Dropout).
+
+```python
+model = deeplabv3_resnet50(weights=None, aux_loss=True)
+model.classifier = DeepLabHead(2048, num_classes)
+model.load_state_dict(torch.load("graphene_model.pth"))
+model.eval()
+```
+
+#### <ins> Evaluation Dataset </ins>
+A DataLoader is created with batch size = 1 (one image at a time for visualization and metric tracking):
+```python
+test_dataset = GrapheneSegmentationDataset(test_img_dir, test_mask_dir, transform=get_basic_transform())
+test_loader = DataLoader(test_dataset, batch_size=1, shuffle=False)
+```
+
+#### <ins> Prediction & Visualization </ins>
+For each test image:
+- The model produces class scores for each pixel.
+- The class with the highest score is selected (argmax) to form a prediction mask.
+- The predicted mask is decoded to RGB colors
+- A comparison plot is saved to `outputs_deeplabv3/ ` showing:
+  -  Input Image
+  -  Ground Truth Mask (grayscale)
+  -  Predicted RGB Mask (color-coded)
+![alt text](https://github.com/Prakhar6/Graphene-Segmentation-Project/blob/main/outputs_deeplabv3/comparison_2.png?raw=true)
+
+
+#### <ins> Evaluation Metric </ins>
+Two important metrics are computed for each image:
+1. Mean Intersection over Union (IoU)
+Measures how well the predicted mask overlaps with the ground truth mask for each class:
+- Calculated for each class (Background, 1 Layer, 2+ Layers)
+- Skips classes not present in the ground truth
+- The value ranges from 1.0 to 0.0 (perfect overlap to no overlap).
+$$
+\text{IoU} = \frac{\text{Intersection}}{\text{Union}} = \frac{TP}{TP + FP + FN}
+$$
+
+2. Pixel Accuracy
+Measures how many pixels were classified correctly out of all pixels:
+$$
+\text{Pixel Accuracy} = \frac{\text{Number of Correctly Classified Pixels}}{\text{Total Number of Pixels}}
+$$
+
+#### <ins> Final Results </ins>
+After evaluating all test images, the script computes the mean IoU per class and average pixel accuracy. This gives a quantitative measure of how well the model performs across each segmentation class.
+```python
+mean_ious = np.nanmean(np.array(all_ious), axis=0)
+mean_acc = np.mean(all_accs)
+
+print(f"DeepLabV3 Mean IoU per class: Background: {mean_ious[0]:.4f}, 1 Layer: {mean_ious[1]:.4f}, 2+ Layers: {mean_ious[2]:.4f}")
+print(f"DeepLabV3 Mean Pixel Accuracy: {mean_acc:.4f}")
+```
+
+
+
+
 - Loads the saved DeepLabV3 model
 - Generates predictions on the test set
 - Saves side-by-side comparisons to outputs_deeplabv3/
