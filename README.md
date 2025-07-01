@@ -72,7 +72,7 @@ This adds two convolutional layers:
 - A 3x3 conv followed by batch norm and ReLU
 - A final 1x1 conv to produce the desired number of output classes (in this case, 3)
 
-#### Dataset & Dataloader 
+#### <ins> Dataset & Dataloader </ins>
 Next, the training images and masks are loaded from:
 ```python
 aug_images/   # Augmented training images
@@ -86,7 +86,7 @@ train_loader = DataLoader(train_dataset, batch_size=2, shuffle=True)
 ```
 Each image and mask is resized to 256x256 and converted to PyTorch tensors.
 
-#### Loss, Optimizer, and Device
+#### <ins> Loss, Optimizer, and Device </ins>
 
 The model uses:
 - CrossEntropyLoss() for multi-class pixel classification
@@ -97,7 +97,7 @@ optimizer = optim.Adam(model.parameters(), lr=1e-4)
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 ```
 
-#### Training Loop
+#### <ins> Training Loop </ins>
 
 This model is then trained for 20 epochs over thr training dataset:
 ```python
