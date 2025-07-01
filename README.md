@@ -50,7 +50,7 @@ This project uses a **DeepLabV3-ResNet50** model from `torchvision.models.segmen
 - Total of 16 images created from the original dataset of 4
 
 ### 3. Model Training (`train_deeplabv3.py`)
-#### Model Architecture
+#### <ins> Model Architecture </ins>
 This script trains a DeepLabV3 segmentation model on the preprocessed graphene dataset using PyTorch. The model used is a DeepLabV3 with a ResNet-50 backbone, pretrained on ImageNet:
 ```python
 from torchvision.models.segmentation import deeplabv3_resnet50
