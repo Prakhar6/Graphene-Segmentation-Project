@@ -8,6 +8,7 @@ from torch.utils.data import DataLoader
 from dataset import GrapheneSegmentationDataset
 from transforms import get_basic_transform
 from train_deeplabv3 import DeepLabHead
+import time
 
 def get_model(num_classes):
     model = deeplabv3_resnet50(weights=None, aux_loss=True)
@@ -52,6 +53,8 @@ def test():
     output_dir = 'outputs_deeplabv3'
     os.makedirs(output_dir, exist_ok=True)
 
+    timestamp = time.strftime("%H-%M-%d-%b")
+
     test_dataset = GrapheneSegmentationDataset(test_img_dir, test_mask_dir, transform=get_basic_transform())
     test_loader = DataLoader(test_dataset, batch_size=1, shuffle=False)
 
@@ -89,13 +92,13 @@ def test():
                 ax.axis("off")
 
             plt.tight_layout()
-            plt.savefig(f"{output_dir}/comparison_{i}.png")
+            plt.savefig(f"{output_dir}/comparison_{timestamp}_{i}.png")
             plt.close()
 
     mean_ious = np.nanmean(np.array(all_ious), axis=0)
     mean_acc = np.mean(all_accs)
 
-    print("✅ Predictions saved to 'outputs_deeplabv3/'")
+    print(f"✅ Predictions saved to 'outputs_deeplabv3/' with timestamp {timestamp}")
     print(f"DeepLabV3 Mean IoU per class: Background: {mean_ious[0]:.4f}, 1 Layer: {mean_ious[1]:.4f}, 2+ Layers: {mean_ious[2]:.4f}")
     print(f"DeepLabV3 Mean Pixel Accuracy: {mean_acc:.4f}")
 
