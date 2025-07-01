@@ -100,6 +100,11 @@ device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 #### <ins> Training Loop </ins>
 
 This model is then trained for 20 epochs over thr training dataset:
+- The model outputs logits (output = model(imgs)['out'])
+- Loss is computed pixel-wise between logits and true mask
+- Backpropagation updates model weights
+- Epoch loss is printed for monitoring
+
 ```python
 for epoch in range(20):
     total_loss = 0
@@ -115,10 +120,7 @@ for epoch in range(20):
         total_loss += loss.item()
     print(f"Epoch {epoch+1}/20 - Loss: {total_loss:.4f}")
 ```
-- The model outputs logits (output = model(imgs)['out'])
-- Loss is computed pixel-wise between logits and true mask
-- Backpropagation updates model weights
-- Epoch loss is printed for monitoring
+
 
 After training, the model’s weights are saved as `graphene_deeplabv3.pth`. You can reload it for testing/inference later using the same model architecture. A similar process is used to train the SMP Unet model as well.
 
