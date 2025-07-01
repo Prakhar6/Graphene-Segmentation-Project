@@ -120,7 +120,7 @@ for epoch in range(20):
 - Backpropagation updates model weights
 - Epoch loss is printed for monitoring
 
-After training, the model’s weights are saved as `graphene_deeplabv3.pth.' You can reload it for testing/inference later using the same model architecture. A similar process is used to train the SMP Unet model as well.
+After training, the model’s weights are saved as `graphene_deeplabv3.pth`. You can reload it for testing/inference later using the same model architecture. A similar process is used to train the SMP Unet model as well.
 
 ### 4. Testing & Evaluation (`test_deeplabv3.py`)
 - Loads the saved DeepLabV3 model
