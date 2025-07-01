@@ -52,13 +52,13 @@ This project uses a **DeepLabV3-ResNet50** model from `torchvision.models.segmen
 ### 3. Model Training (`train_deeplabv3.py`)
 #### Model Architecture
 This script trains a DeepLabV3 segmentation model on the preprocessed graphene dataset using PyTorch. The model used is a DeepLabV3 with a ResNet-50 backbone, pretrained on ImageNet:
-```
+```python
 from torchvision.models.segmentation import deeplabv3_resnet50
 model = deeplabv3_resnet50(pretrained=True)
 ```
 
 To adapt this model to a 3-class problem (Background, 1 Layer, 2+ Layers), the classifier head is replaced with a custom head:
-```
+```python
 class DeepLabHead(nn.Sequential):
     def __init__(self, in_channels, num_classes):
         super(DeepLabHead, self).__init__(
@@ -72,8 +72,9 @@ This adds two convolutional layers:
 - A 3x3 conv followed by batch norm and ReLU
 - A final 1x1 conv to produce the desired number of output classes (in this case, 3)
 
+#### Dataset & Dataloader 
 Next, the training images and masks are loaded from:
-```
+```python
 aug_images/   # Augmented training images
 aug_masks/    # Corresponding training masks
 ```
@@ -83,15 +84,43 @@ from transforms import get_basic_transform
 train_dataset = GrapheneSegmentationDataset(train_img_dir, train_mask_dir, transform=get_basic_transform())
 train_loader = DataLoader(train_dataset, batch_size=2, shuffle=True)
 ```
+Each image and mask is resized to 256x256 and converted to PyTorch tensors.
 
+#### Loss, Optimizer, and Device
 
-
-
-
-- 20 epochs using CrossEntropyLoss
+The model uses:
+- CrossEntropyLoss() for multi-class pixel classification
 - Adam optimizer with lr=1e-4
-- Final model saved to graphene_deeplabv3.pth
+```python
+criterion = nn.CrossEntropyLoss()
+optimizer = optim.Adam(model.parameters(), lr=1e-4)
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+```
 
+#### Training Loop
+
+This model is then trained for 20 epochs over thr training dataset:
+```python
+for epoch in range(20):
+    total_loss = 0
+    for imgs, masks in train_loader:
+        imgs, masks = imgs.to(device), masks.to(device)
+
+        optimizer.zero_grad()
+        output = model(imgs)['out']  # Get raw logits from model
+        loss = criterion(output, masks)
+        loss.backward()
+        optimizer.step()
+
+        total_loss += loss.item()
+    print(f"Epoch {epoch+1}/20 - Loss: {total_loss:.4f}")
+```
+- The model outputs logits (output = model(imgs)['out'])
+- Loss is computed pixel-wise between logits and true mask
+- Backpropagation updates model weights
+- Epoch loss is printed for monitoring
+
+After training, the model’s weights are saved as `graphene_deeplabv3.pth.' You can reload it for testing/inference later using the same model architecture. A similar process is used to train the SMP Unet model as well.
 
 ### 4. Testing & Evaluation (`test_deeplabv3.py`)
 - Loads the saved DeepLabV3 model
