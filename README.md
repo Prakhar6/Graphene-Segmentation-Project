@@ -99,7 +99,7 @@ device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 #### <ins> Training Loop </ins>
 
-This model is then trained for 20 epochs over thr training dataset:
+This model is then trained for 20 epochs over the training dataset:
 - The model outputs logits (output = model(imgs)['out'])
 - Loss is computed pixel-wise between logits and true mask
 - Backpropagation updates model weights
