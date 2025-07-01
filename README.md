@@ -36,11 +36,12 @@ This project uses a **DeepLabV3-ResNet50** model from `torchvision.models.segmen
 ### 1. Dataset & Mask Preparation
 
 - Images are cropped from high-res 2048×1536 microscope scans.
-- Masks are created using [MakeSense.ai](https://www.makesense.ai/) and exported as PNG or COCO format.
+- Masks are created using [MakeSense.ai](https://www.makesense.ai/) and exported as COCO format.
 - Pixel labels:
   - `0` → background (blue)
   - `1` → 1 layer (green)
   - `2` → 2+ layers (red)
+- 'generate_augmented_dataset.py' unpacks the COCO format to create the masks for pytorch in PNG format
 
 ### 2. Data Augmentation
 
