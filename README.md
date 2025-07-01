@@ -18,20 +18,6 @@ This allows researchers to quickly analyze high-resolution microscope images wit
 
 ---
 
-## 🗂️ Project Structure
-
-graphene-segmentation/
-├── images/ # Raw cropped images
-├── masks/ # Labeled segmentation masks (1-channel)
-├── aug_images/ # Augmented training images
-├── aug_masks/ # Augmented training masks
-├── outputs_deeplabv3/ # Prediction visualizations from DeepLabV3
-├── dataset.py
-├── transforms.py
-├── train.py
-├── test.py
-├── README.md
-
 ## 📸 Example Outputs
 
 
