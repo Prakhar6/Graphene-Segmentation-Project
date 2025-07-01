@@ -50,11 +50,19 @@ Implemented in `transforms.py`:
 - Converted into PyTorch tensors
 - Total of 16 images created from the original dataset of 4
 
-### ### ✅ 3. Model Training (`train.py`)
+### 3. Model Training (`train_deeplabv3.py`)
 - 20 epochs using CrossEntropyLoss
 - Adam optimizer with lr=1e-4
 - Final model saved to graphene_deeplabv3.pth
 
+
+### 4. Testing & Evaluation ('test_deeplabv3.py')
+- Loads the saved DeepLabV3 model
+- Generates predictions on the test set
+- Saves side-by-side comparisons to outputs_deeplabv3/ C
+- omputes metrics:
+-   Per-class IoU
+-   Pixel accuracy
 
 
 
