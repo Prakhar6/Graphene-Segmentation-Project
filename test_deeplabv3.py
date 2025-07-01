@@ -12,7 +12,7 @@ from train_deeplabv3 import DeepLabHead
 def get_model(num_classes):
     model = deeplabv3_resnet50(weights=None, aux_loss=True)
     model.classifier = DeepLabHead(2048, num_classes)
-    model.load_state_dict(torch.load("graphene_model.pth", map_location='cpu'))
+    model.load_state_dict(torch.load("graphene_deeplabv3.pth", map_location='cpu'))
     model.eval()
     return model
 
