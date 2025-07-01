@@ -155,7 +155,7 @@ For each test image:
   -  Input Image
   -  Ground Truth Mask (grayscale)
   -  Predicted RGB Mask (color-coded)
-![alt text](https://github.com/Prakhar6/Graphene-Segmentation-Project/blob/main/outputs_deeplabv3/comparison_2.png?raw=true)
+![alt text](https://github.com/Prakhar6/Graphene-Segmentation-Project/blob/main/outputs_deeplabv3/comparison_12-54-01-Jul_2.png?raw=true)
 
 
 #### <ins> Evaluation Metric </ins>
