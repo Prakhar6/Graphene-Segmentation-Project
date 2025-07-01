@@ -24,6 +24,7 @@ def get_augmented_transform():
             mask = TF.rotate(mask, angle)
 
         image = TF.to_tensor(image)
+        image = TF.normalize(image, mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]) #Image normailization 
         mask = torch.as_tensor(np.array(mask), dtype=torch.long)
         return image, mask
     return transform
@@ -33,6 +34,7 @@ def get_basic_transform():
         image = TF.resize(image, (256, 256))
         mask = TF.resize(mask, (256, 256), interpolation=Image.NEAREST)
         image = TF.to_tensor(image)
+        image = TF.normalize(image, mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]) #Image normailization 
         mask = torch.as_tensor(np.array(mask), dtype=torch.long)
         return image, mask
     return transform
