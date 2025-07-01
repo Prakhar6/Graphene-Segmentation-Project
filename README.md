@@ -68,5 +68,14 @@ This project uses a **DeepLabV3-ResNet50** model from `torchvision.models.segmen
 |-------------|----------------|-------------|----------------|----------------|
 | **DeepLabV3** | **0.9636**     | **0.7915**   | **0.9741**      | **0.9812**     |
 | U-Net       | 0.9507         | 0.3574      | 0.9597         | 0.9726         |
+> DeepLabV3 achieved significantly better results on all classes, especially on the 1-layer class which is more subtle and harder to detect.
 
+## Key Takeaways
+- Even with limited image data, segmentation of graphene layers is possible using pretrained models and careful data augmentation.
+- DeepLabV3 generalizes well to fine-grained visual differences in scientific images.
+- Labeling with even ~4–5 high-quality annotated images, combined with flips/rotations, can yield strong performance.
 
+## Acknowledgments 
+- MakeSense.ai for fast online annotation
+- DeepLabV3 by Google, available via torchvision.models.segmentation
+- Research guidance and data from Dr. Shao’s Lab
