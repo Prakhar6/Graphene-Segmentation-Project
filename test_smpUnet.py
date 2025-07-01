@@ -7,7 +7,6 @@ from dataset import GrapheneSegmentationDataset
 from transforms import get_basic_transform
 import segmentation_models_pytorch as smp
 from matplotlib.patches import Patch
-import time
 
 PALETTE = {
     0: (0, 0, 255),      # Background - Blue
@@ -53,8 +52,6 @@ def test():
     output_dir = 'outputs_unet'
     os.makedirs(output_dir, exist_ok=True)
 
-    timestamp = time.strftime("%H-%M-%d-%b")
-
     test_dataset = GrapheneSegmentationDataset(test_img_dir, test_mask_dir, transform=get_basic_transform())
     test_loader = DataLoader(test_dataset, batch_size=1, shuffle=False)
 
@@ -95,13 +92,13 @@ def test():
             fig.legend(handles=legend_patches, loc='lower center', ncol=3)
 
             plt.tight_layout()
-            plt.savefig(f"{output_dir}/unet_comparison_{timestamp}_{i}.png", bbox_inches='tight')
+            plt.savefig(f"{output_dir}/unet_comparison_{i}.png", bbox_inches='tight')
             plt.close()
 
     mean_ious = np.nanmean(np.array(all_ious), axis=0)
     mean_acc = np.mean(all_accs)
 
-    print(f"✅ U-Net predictions saved to 'outputs_unet/' with timestamp {timestamp}")
+    print("✅ U-Net predictions saved to 'outputs_unet/'")
     print(f"U-Net Mean IoU per class: Background: {mean_ious[0]:.4f}, 1 Layer: {mean_ious[1]:.4f}, 2+ Layers: {mean_ious[2]:.4f}")
     print(f"U-Net Mean Pixel Accuracy: {mean_acc:.4f}")
 
