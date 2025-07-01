@@ -208,4 +208,4 @@ print(f"DeepLabV3 Mean Pixel Accuracy: {mean_acc:.4f}")
 ## Acknowledgments 
 - [MakeSense.ai](https://www.makesense.ai/) for fast online annotation
 - DeepLabV3 by Google, available via torchvision.models.segmentation
-- Research guidance and data from Dr. Shao’s Lab
+- Research guidance and data from Dr. Yinming Shao’s Lab
