@@ -1,0 +1,91 @@
+{
+  "total_quadrants": 16,
+  "quadrants": [
+    {
+      "image": "3-1-1-100x_tl.jpg",
+      "mask": "3-1-1-100x_tl_mask.png",
+      "quadrant": "tl"
+    },
+    {
+      "image": "3-1-1-100x_tr.jpg",
+      "mask": "3-1-1-100x_tr_mask.png",
+      "quadrant": "tr"
+    },
+    {
+      "image": "3-1-1-100x_bl.jpg",
+      "mask": "3-1-1-100x_bl_mask.png",
+      "quadrant": "bl"
+    },
+    {
+      "image": "3-1-1-100x_br.jpg",
+      "mask": "3-1-1-100x_br_mask.png",
+      "quadrant": "br"
+    },
+    {
+      "image": "3-2-1-100x_tl.jpg",
+      "mask": "3-2-1-100x_tl_mask.png",
+      "quadrant": "tl"
+    },
+    {
+      "image": "3-2-1-100x_tr.jpg",
+      "mask": "3-2-1-100x_tr_mask.png",
+      "quadrant": "tr"
+    },
+    {
+      "image": "3-2-1-100x_bl.jpg",
+      "mask": "3-2-1-100x_bl_mask.png",
+      "quadrant": "bl"
+    },
+    {
+      "image": "3-2-1-100x_br.jpg",
+      "mask": "3-2-1-100x_br_mask.png",
+      "quadrant": "br"
+    },
+    {
+      "image": "3-7-1-100x_tl.jpg",
+      "mask": "3-7-1-100x_tl_mask.png",
+      "quadrant": "tl"
+    },
+    {
+      "image": "3-7-1-100x_tr.jpg",
+      "mask": "3-7-1-100x_tr_mask.png",
+      "quadrant": "tr"
+    },
+    {
+      "image": "3-7-1-100x_bl.jpg",
+      "mask": "3-7-1-100x_bl_mask.png",
+      "quadrant": "bl"
+    },
+    {
+      "image": "3-7-1-100x_br.jpg",
+      "mask": "3-7-1-100x_br_mask.png",
+      "quadrant": "br"
+    },
+    {
+      "image": "3-8-1-100x_tl.jpg",
+      "mask": "3-8-1-100x_tl_mask.png",
+      "quadrant": "tl"
+    },
+    {
+      "image": "3-8-1-100x_tr.jpg",
+      "mask": "3-8-1-100x_tr_mask.png",
+      "quadrant": "tr"
+    },
+    {
+      "image": "3-8-1-100x_bl.jpg",
+      "mask": "3-8-1-100x_bl_mask.png",
+      "quadrant": "bl"
+    },
+    {
+      "image": "3-8-1-100x_br.jpg",
+      "mask": "3-8-1-100x_br_mask.png",
+      "quadrant": "br"
+    }
+  ],
+  "classes": [
+    "background",
+    "1_layer",
+    "2_layer",
+    "3+_layer"
+  ]
+}

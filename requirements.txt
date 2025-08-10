@@ -5,3 +5,7 @@ matplotlib
 Pillow
 pycocotools
 segmentation-models-pytorch
+numpy
+seaborn
+scikit-learn
+albumentations
